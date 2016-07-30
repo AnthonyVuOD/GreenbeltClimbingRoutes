@@ -141,20 +141,17 @@ new Vue ({
       },
       computed: {
         filteredClimbInfos: function() {
-          var filters = {}
+          return this.climbInfos.filter(function(climb) {
+            if (this.locationSelect !== 'all' && climb.location !== this.locationSelect) {
+              return false;
+            }
 
-          if (this.locationSelect !== 'all') {
-            filters.location = this.locationSelect;
-          }
+            if (this.gradeSelect !== 'all' && climb.grade !== this.gradeSelect) {
+              return false;
+            }
 
-          if (this.gradeSelect !== 'all') {
-            filters.grade = this.gradeSelect;
-          }
-
-          // I'm using a library called underscore.js here. It has a lot of
-          // really useful methods for dealing with arrays!
-          // http://underscorejs.org/#where
-          return _(this.climbInfos).where(filters);
+            return true;
+          }.bind(this));
         }
       }
     },
