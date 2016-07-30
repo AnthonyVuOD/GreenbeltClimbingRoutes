@@ -62,13 +62,13 @@
           <hr>
           <p>Use form below</p>
           <div id="selectors">
-            <select id="locationSelect">
+            <select v-model="locationSelect">
               <option value="all">All</option>
               <option value="Seismic">Seismic</option>
               <option value="Gus Fruh">Gus Fruh</option>
               <option value="New Wall">New Wall</option>
             </select>
-            <select id="gradeSelect">
+            <select v-model="gradeSelect">
               <option value="all">All</option>
               <option value="5.6">5.6</option>
               <option value="5.7">5.7</option>
@@ -78,23 +78,33 @@
               <option value="5.11">5.11</option>
               <option value="5.12">5.12</option>
             </select>
-            <button type="button" name="button" @click="updateTable()">Submit</button>
             <br>
             <br>
             <div v-show="tableShow" id="tableDiv">
               <table>
-                <tr>
-                  <th class="name">Name</th>
-                  <th class="grade">Grade</th>
-                  <th class="subGrade">Sub-grade</th>
-                  <th class="location">Location</th>
-                </tr>
-                <tr v-for="filteredClimbInfo in filteredClimbInfos">
-                  <td>{{filteredClimbInfo.climb}}</td>
-                  <td>{{filteredClimbInfo.grade}}</td>
-                  <td>{{filteredClimbInfo.subGrade}}</td>
-                  <td>{{filteredClimbInfo.location}}</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th class="name">Name</th>
+                    <th class="grade">Grade</th>
+                    <th class="subGrade">Sub-grade</th>
+                    <th class="location">Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template v-if="filteredClimbInfos.length == 0">
+                    <tr>
+                      <td colspan="4">No results!</td>
+                    </tr>
+                  </template>
+                  <template v-else>
+                    <tr v-for="filteredClimbInfo in filteredClimbInfos">
+                      <td>{{filteredClimbInfo.climb}}</td>
+                      <td>{{filteredClimbInfo.grade}}</td>
+                      <td>{{filteredClimbInfo.subGrade}}</td>
+                      <td>{{filteredClimbInfo.location}}</td>
+                    </tr>
+                  </template>
+                </tbody>
               </table>
             </div>
           </div>
@@ -118,6 +128,8 @@
         </div>
       </template>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
     <script src="js/VueWebsite.js"></script>
   </body>
