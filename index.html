@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Greenbelt Climbing</title>
+    <link rel="stylesheet" type="text/css" href="css/VueWebsite.css" >
+    <link href='https://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  </head>
+  <body>
+
+    <div id="content">
+      <nav>
+        <a @click="clickShowContact" href="#">Contact</a>
+        <a @click="clickShowStaff" href="#">Climbs</a>
+        <a @click="clickShowAbout" href="#">About</a>
+        <a @click="clickShowHome" href="#">Home</a>
+      </nav>
+
+      <div v-if="showHome" class="animated" transition="fade"><home></home></div>
+      <div v-if="showAbout" class="animated" transition="fade"><about></about></div>
+      <div v-if="showStaff" class="animated" transition="fade"><climbs></climbs></div>
+      <div v-if="showContact" class="animated" transition="fade"><contact></contact></div>
+      <div id="footer">
+        <p>Developed by Anthony Vu</p>
+      </div>
+    </div>
+
+<!-- Home page -->
+      <template id="home-template">
+        <div id="homeDiv" class="contentDiv">
+          <img id="logo" src="photos/greenbeltLogo2.png" />
+          <h1>Greenbelt Climbing Routes</h1>
+        </div>
+      </template>
+
+<!-- About page -->
+      <template id="about-template">
+        <div id="aboutDiv" class="contentDiv">
+          <h2>About</h2>
+          <img class="logoHeader" src="photos/greenbeltLogo2.png" alt="" />
+          <hr>
+          <p>Located in Austin, Texas, the Greenbelt is a hiking trail scattered
+          with quality climbing walls. This website was made to display climbing routes by location and
+          grade difficulty. Information was taken from several climbing resources
+          and knowledge obtained by personal experience. The three climbing locations
+          located on the Greenbelt are: Seismic, Gus Fruh, and New Wall.</p>
+          <br>
+          <div class="locations"><a href="#" @click="seismicClick()">Seismic</a></div>
+          <div class="locations"><a href="#" @click="gusFruhClick()">Gus Fruh</a></div>
+          <div class="locations"><a href="#" @click="newWallClick()">New Wall</a></div>
+          <br>
+          <br>
+          <div id="locationInfo">{{{locations}}}</div>
+        </div>
+      </template>
+
+<!-- Climb Page -->
+      <template id="climbs-template">
+        <div id="climbsDiv" class="contentDiv">
+          <h2>Climbs</h2>
+          <img class="logoHeader" src="photos/greenbeltLogo2.png" alt="" />
+          <hr>
+          <p>Use form below</p>
+          <div id="selectors">
+            <select id="locationSelect">
+              <option value="all">All</option>
+              <option value="Seismic">Seismic</option>
+              <option value="Gus Fruh">Gus Fruh</option>
+              <option value="New Wall">New Wall</option>
+            </select>
+            <select id="gradeSelect">
+              <option value="all">All</option>
+              <option value="5.6">5.6</option>
+              <option value="5.7">5.7</option>
+              <option value="5.8">5.8</option>
+              <option value="5.9">5.9</option>
+              <option value="5.10">5.10</option>
+              <option value="5.11">5.11</option>
+              <option value="5.12">5.12</option>
+            </select>
+            <button type="button" name="button" @click="updateTable()">Submit</button>
+            <br>
+            <br>
+            <div v-show="tableShow" id="tableDiv">
+              <table>
+                <tr>
+                  <th class="name">Name</th>
+                  <th class="grade">Grade</th>
+                  <th class="subGrade">Sub-grade</th>
+                  <th class="location">Location</th>
+                </tr>
+                <tr v-for="filteredClimbInfo in filteredClimbInfos">
+                  <td>{{filteredClimbInfo.climb}}</td>
+                  <td>{{filteredClimbInfo.grade}}</td>
+                  <td>{{filteredClimbInfo.subGrade}}</td>
+                  <td>{{filteredClimbInfo.location}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </template>
+
+<!-- Contact Page -->
+      <template id="contact-template">
+        <div id="contactDiv" class="contentDiv">
+          <h2>Contact</h2>
+          <img class="logoHeader" src="photos/greenbeltLogo2.png" alt="" />
+          <hr>
+          <div id="climberDiv">
+            <img id="climber" src="photos/climber.png" alt="" />
+          </div>
+          <div>
+            <a href="https://www.facebook.com/groups/189656637772644/" target="_blank"><img src="photos/facebookIcon.png"/></a>
+            <a href="https://www.mountainproject.com" target="_blank"><img src="photos/mountainProjectIcon.png"/></a>
+            <a href="mailto:tonyvu001@hotmail.com?subject=feedback" target="_blank"><img src="photos/emailIcon.png"/></a>
+          </div>
+        </div>
+      </template>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+    <script src="js/VueWebsite.js"></script>
+  </body>
+</html>
