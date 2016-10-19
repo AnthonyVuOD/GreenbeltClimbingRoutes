@@ -119,6 +119,9 @@ body {
   font-size: 1.5em; }
 #climbsDiv #selectors {
   width: 100%; }
+#climbsDiv form {
+  color: #dfdfdf;
+  font-size: 1.5em; }
 #climbsDiv #tableDiv {
   width: 100%;
   position: absolute; }
@@ -206,7 +209,16 @@ body {
   .contentDiv {
     width: 75%; } }
 @media (max-width: 600px) {
+  #content nav a {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 1.4em;
+    font-family: "Julius Sans One", sans-serif; }
+    #content nav a:hover {
+      text-decoration: underline;
+      color: white; }
+
   .contentDiv {
-    width: 100%; } }
+    width: 90%; } }
 
 /*# sourceMappingURL=VueWebsite.css.map */

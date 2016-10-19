@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Greenbelt Climbing</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/VueWebsite.css" >
     <link href='https://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -60,16 +62,15 @@
           <h2>Climbs</h2>
           <img class="logoHeader" src="photos/greenbeltLogo2.png" alt="" />
           <hr>
-          <p>Use form below</p>
           <div id="selectors">
-            <select v-model="locationSelect">
-              <option value="all">All</option>
+            <select id="locationSelect" v-model="searchByLocation">
+              <option value="" selected="selected">All</option>
               <option value="Seismic">Seismic</option>
               <option value="Gus Fruh">Gus Fruh</option>
               <option value="New Wall">New Wall</option>
             </select>
-            <select v-model="gradeSelect">
-              <option value="all">All</option>
+            <select id="gradeSelect" v-model="searchByGrade">
+              <option value="" selected="selected">All</option>
               <option value="5.6">5.6</option>
               <option value="5.7">5.7</option>
               <option value="5.8">5.8</option>
@@ -78,33 +79,36 @@
               <option value="5.11">5.11</option>
               <option value="5.12">5.12</option>
             </select>
+            <!-- <form >
+              <br>Search<br><input type="text" name="name" v-model="searchText">
+            </form> -->
             <br>
             <br>
             <div v-show="tableShow" id="tableDiv">
               <table>
                 <thead>
-                  <tr>
+                   <tr>
                     <th class="name">Name</th>
-                    <th class="grade">Grade</th>
-                    <th class="subGrade">Sub-grade</th>
-                    <th class="location">Location</th>
-                  </tr>
+                     <th class="grade">Grade</th>
+                     <th class="subGrade">Sub-grade</th>
+                     <th class="location">Location</th>
+                   </tr>
                 </thead>
                 <tbody>
-                  <template v-if="filteredClimbInfos.length == 0">
-                    <tr>
-                      <td colspan="4">No results!</td>
-                    </tr>
+                  <template v-if="climbInfos.length == 0">
+                   <tr>
+                    <td colspan="4">No results!</td>
+                   </tr>
                   </template>
                   <template v-else>
-                    <tr v-for="filteredClimbInfo in filteredClimbInfos">
-                      <td>{{filteredClimbInfo.climb}}</td>
-                      <td>{{filteredClimbInfo.grade}}</td>
-                      <td>{{filteredClimbInfo.subGrade}}</td>
-                      <td>{{filteredClimbInfo.location}}</td>
+                    <tr v-for="climbInfo in climbInfos | filterBy searchByLocation in 'location'| filterBy searchByGrade in 'grade'">
+                      <td>{{climbInfo.climb}}</td>
+                      <td>{{climbInfo.grade}}</td>
+                      <td>{{climbInfo.subGrade}}</td>
+                      <td>{{climbInfo.location}}</td>
                     </tr>
                   </template>
-                </tbody>
+                 </tbody>
               </table>
             </div>
           </div>
@@ -128,8 +132,6 @@
         </div>
       </template>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
     <script src="js/VueWebsite.js"></script>
   </body>

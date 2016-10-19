@@ -135,26 +135,87 @@ new Vue ({
           {climb: "School Boys Indirect", grade: "5.9", subGrade: "n/a", location: "New Wall"},
           {climb: "Gunsmoke", grade: "5.9", subGrade: "n/a", location: "New Wall"}
         ],
-      tableShow: true,
-      locationSelect: 'all',
-      gradeSelect: 'all'}
+      filteredClimbInfos: [],
+      tableShow: true}
       },
-      computed: {
-        filteredClimbInfos: function() {
-          var filters = {}
+      methods: {
+        // function used to sort table
+        updateTable: function () {
+          var locationSelect = document.getElementById('locationSelect').value;
+          var gradeSelect = document.getElementById('gradeSelect').value;
+          this.filteredClimbInfos.length = 0;
 
-          if (this.locationSelect !== 'all') {
-            filters.location = this.locationSelect;
+          if (locationSelect == "all" && gradeSelect == "all") {
+            // return all objects in array
+            for(var i=0; i<this.climbInfos.length; i++){
+              this.filteredClimbInfos.push({climb: this.climbInfos[i].climb,
+                                            grade: this.climbInfos[i].grade,
+                                            subGrade: this.climbInfos[i].subGrade,
+                                            location: this.climbInfos[i].location
+                                           });
+            }
+          } else if (locationSelect == "all" && gradeSelect != "all"){
+            for(var i=0; i<this.climbInfos.length; i++){
+              if (gradeSelect == this.climbInfos[i].grade) {
+                // return all objects with selected grade
+                this.filteredClimbInfos.push({climb: this.climbInfos[i].climb,
+                                              grade: this.climbInfos[i].grade,
+                                              subGrade: this.climbInfos[i].subGrade,
+                                              location: this.climbInfos[i].location
+                                             });
+              }
+            }
+          } else if (locationSelect != "all" && gradeSelect == "all"){
+            for(var i=0; i<this.climbInfos.length; i++){
+              if (locationSelect == this.climbInfos[i].location) {
+                // return all objects with selected location
+                this.filteredClimbInfos.push({climb: this.climbInfos[i].climb,
+                                              grade: this.climbInfos[i].grade,
+                                              subGrade: this.climbInfos[i].subGrade,
+                                              location: this.climbInfos[i].location
+                                             });
+              }
+            }
+          } else {
+            for(var i=0; i<this.climbInfos.length; i++){
+              if (locationSelect == this.climbInfos[i].location && gradeSelect == this.climbInfos[i].grade) {
+                // return all objects with selected location and grade
+                this.filteredClimbInfos.push({climb: this.climbInfos[i].climb,
+                                              grade: this.climbInfos[i].grade,
+                                              subGrade: this.climbInfos[i].subGrade,
+                                              location: this.climbInfos[i].location
+                                             });
+                // Aaron note: I wanted to put an else statement here that alerts
+                // that there are no climbs with the selected fields (i.e "gus fruh" and "5.12")
+                // but this results in the alert popping up multiple times due to
+                // it being within the for loop statement's scope above. Do you have
+                // any ideas?
+              }
+            }
           }
-
-          if (this.gradeSelect !== 'all') {
-            filters.grade = this.gradeSelect;
-          }
-
-          // I'm using a library called underscore.js here. It has a lot of
-          // really useful methods for dealing with arrays!
-          // http://underscorejs.org/#where
-          return _(this.climbInfos).where(filters);
+          //  NOT APPLICABLE CODE! **PLEASE  IGNORE!!!**
+          
+          // for(var i=0; i<this.climbInfos.length; i++){
+          //   if (locationSelect == this.climbInfos[i].location && gradeSelect == this.climbInfos[i].grade) {
+          //     // return all objects with selected location and grade
+          //     this.filteredClimbInfos.push({climb: this.climbInfos[i].climb,
+          //                                   grade: this.climbInfos[i].grade,
+          //                                   subGrade: this.climbInfos[i].subGrade,
+          //                                   location: this.climbInfos[i].location
+          //                                  });
+          //   }
+          // }
+          // for (var i=0; i<this.climbInfos.length; i++) {
+          //   var gradeSelect = document.getElementById("gradeSelect").value;
+          //   var locationSelect = document.getElementById('locationSelect').value;
+          //   if (this.climbInfos[i].grade == gradeSelect) {
+          //     if (this.climbInfos[i].location == locationSelect) {
+          //       alert("sworking?")
+          //     }
+          //   } else if (gradeSelect == "all" && locationSelect == "all"){
+          //     // return whole array
+          //   }
+          // }
         }
       }
     },

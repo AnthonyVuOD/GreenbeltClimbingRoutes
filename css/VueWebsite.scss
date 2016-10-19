@@ -148,6 +148,10 @@ body {
   #selectors {
     width: 100%;
   }
+  form {
+    color: $fontColor;
+    font-size: 1.5em;
+  }
   #tableDiv {
     width: 100%;
     position: absolute;
@@ -261,7 +265,24 @@ top:13px;
   }
 }
 @media (max-width:600px) {
-  .contentDiv {
-    width: 100%;
+  #content {
+    nav {
+      a {
+        padding-left: 8px;
+        padding-right: 8px;
+        font: {
+          size: 1.4em;
+          family: $headerFont;
+        }
+        &:hover {
+          text-decoration: underline;
+          color:white;
+        }
+      }
+    }
   }
+  .contentDiv {
+    width: 90%;
+  }
+
 }
